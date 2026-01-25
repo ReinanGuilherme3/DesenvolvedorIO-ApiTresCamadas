@@ -20,6 +20,14 @@ public class FornecedorService : BaseService, IFornecedorService
 
         if (!fornecedorValidation || !enderecoValidation) return;
 
+        var existeFornecedor = await _fornecedorRepository.Buscar(f => f.Documento == entidade.Documento);
+
+        if (existeFornecedor.Any())
+        {
+            Notificar("Já existe um fornecedor com este documento informado.");
+            return;
+        }
+
         await _fornecedorRepository.Adicionar(entidade);
     }
 
@@ -27,11 +35,37 @@ public class FornecedorService : BaseService, IFornecedorService
     {
         if (!ExecutarValidacao(new FornecedorValidation(), entidade)) return;
 
+        var existeFornecedor = await _fornecedorRepository.Buscar(f => f.Documento == entidade.Documento && f.Id != entidade.Id);
+        if (existeFornecedor.Any())
+        {
+            Notificar("Já existe um fornecedor com este documento informado.");
+            return;
+        }
+
         await _fornecedorRepository.Atualizar(entidade);
     }
 
     public async Task Remover(Guid id)
     {
+        var existeFornecedor = await _fornecedorRepository.ObterFornecedorProdutosEndereco(id);
+        if (existeFornecedor is null)
+        {
+            Notificar("Fornecedor não existe!");
+            return;
+        }
+
+        if (existeFornecedor.Produtos.Any())
+        {
+            Notificar("O fornecedor possui produtos cadastrados!");
+            return;
+        }
+
+        var endereco = await _fornecedorRepository.ObterEnderecoPorFornecedor(id);
+        if (endereco is not null)
+        {
+            await _fornecedorRepository.RemoverEnderecoFornecedor(endereco);
+        }
+
         await _fornecedorRepository.Remover(id);
     }
     public void Dispose()
