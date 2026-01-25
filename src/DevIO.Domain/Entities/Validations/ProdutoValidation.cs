@@ -4,7 +4,7 @@ namespace DevIO.Domain.Entities.Validations;
 
 public class ProdutoValidation : AbstractValidator<Produto>
 {
-    ProdutoValidation()
+    public ProdutoValidation()
     {
         RuleFor(x => x.Nome)
             .NotEmpty().WithMessage("O campo {PropertyName} precisa ser fornecido")

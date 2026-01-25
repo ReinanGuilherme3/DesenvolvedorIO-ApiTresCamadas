@@ -4,7 +4,7 @@ namespace DevIO.Domain.Interfaces;
 
 public interface IProdutoService : IDisposable
 {
-    Task Adicionar(Produto entity);
-    Task Atualizar(Produto entity);
+    Task Adicionar(Produto entidade);
+    Task Atualizar(Produto entidade);
     Task Remover(Guid id);
 }

@@ -1,4 +1,5 @@
 ﻿using DevIO.Domain.Entities;
+using DevIO.Domain.Entities.Validations;
 using DevIO.Domain.Interfaces;
 
 namespace DevIO.Domain.Services;
@@ -12,14 +13,21 @@ public class FornecedorService : BaseService, IFornecedorService
         _fornecedorRepository = fornecedorRepository;
     }
 
-    public async Task Adicionar(Fornecedor entity)
+    public async Task Adicionar(Fornecedor entidade)
     {
-        await _fornecedorRepository.Adicionar(entity);
+        var fornecedorValidation = ExecutarValidacao(new FornecedorValidation(), entidade);
+        var enderecoValidation = ExecutarValidacao(new EnderecoValidation(), entidade.Endereco);
+
+        if (!fornecedorValidation || !enderecoValidation) return;
+
+        await _fornecedorRepository.Adicionar(entidade);
     }
 
-    public async Task Atualizar(Fornecedor entity)
+    public async Task Atualizar(Fornecedor entidade)
     {
-        await _fornecedorRepository.Atualizar(entity);
+        if (!ExecutarValidacao(new FornecedorValidation(), entidade)) return;
+
+        await _fornecedorRepository.Atualizar(entidade);
     }
 
     public async Task Remover(Guid id)

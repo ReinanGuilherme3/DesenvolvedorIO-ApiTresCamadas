@@ -1,4 +1,5 @@
 ﻿using DevIO.Domain.Entities;
+using DevIO.Domain.Entities.Validations;
 using DevIO.Domain.Interfaces;
 
 namespace DevIO.Domain.Services;
@@ -12,14 +13,18 @@ internal class ProdutoService : BaseService, IProdutoService
         _produtoRepository = produtoRepository;
     }
 
-    public async Task Adicionar(Produto entity)
+    public async Task Adicionar(Produto entidade)
     {
-        await _produtoRepository.Adicionar(entity);
+        if (!ExecutarValidacao(new ProdutoValidation(), entidade)) return;
+
+        await _produtoRepository.Adicionar(entidade);
     }
 
-    public async Task Atualizar(Produto entity)
+    public async Task Atualizar(Produto entidade)
     {
-        await _produtoRepository.Atualizar(entity);
+        if (!ExecutarValidacao(new ProdutoValidation(), entidade)) return;
+
+        await _produtoRepository.Atualizar(entidade);
     }
 
     public async Task Remover(Guid id)

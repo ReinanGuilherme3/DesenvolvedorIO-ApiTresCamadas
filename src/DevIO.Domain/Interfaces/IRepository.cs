@@ -5,8 +5,8 @@ namespace DevIO.Domain.Interfaces;
 
 public interface IRepository<TEntity> : IDisposable where TEntity : Entity
 {
-    Task Adicionar(TEntity entity);
-    Task Atualizar(TEntity entity);
+    Task Adicionar(TEntity entidade);
+    Task Atualizar(TEntity entidade);
     Task Remover(Guid id);
     Task<TEntity> ObterPorId(Guid id);
     Task<IEnumerable<TEntity>> ObterTodos();
