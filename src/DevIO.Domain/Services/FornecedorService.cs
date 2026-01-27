@@ -8,7 +8,7 @@ public class FornecedorService : BaseService, IFornecedorService
 {
     private readonly IFornecedorRepository _fornecedorRepository;
 
-    public FornecedorService(IFornecedorRepository fornecedorRepository)
+    public FornecedorService(IFornecedorRepository fornecedorRepository, INotificador notificador) : base(notificador)
     {
         _fornecedorRepository = fornecedorRepository;
     }
