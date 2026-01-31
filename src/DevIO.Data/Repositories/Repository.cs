@@ -6,16 +6,10 @@ using System.Linq.Expressions;
 
 namespace DevIO.Data.Repositories;
 
-public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
+public abstract class Repository<TEntity>(DevIODbContext db) : IRepository<TEntity> where TEntity : Entity, new()
 {
-    protected readonly DevIODbContext Db;
-    protected readonly DbSet<TEntity> DbSet;
-
-    protected Repository(DevIODbContext db)
-    {
-        Db = db;
-        DbSet = db.Set<TEntity>();
-    }
+    protected readonly DevIODbContext Db = db;
+    protected readonly DbSet<TEntity> DbSet = db.Set<TEntity>();
 
     public virtual async Task Adicionar(TEntity entidade)
     {
@@ -49,7 +43,5 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         => await Db.SaveChangesAsync();
 
     public void Dispose()
-    {
-        Db?.Dispose();
-    }
+        => Db?.Dispose();
 }
