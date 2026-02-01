@@ -12,8 +12,6 @@ internal class FornecedorRepository(DevIODbContext context) : Repository<Fornece
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-
-
     public async Task<Fornecedor?> ObterFornecedorEndereco(Guid id)
         => await DbSet
                 .AsNoTracking()
