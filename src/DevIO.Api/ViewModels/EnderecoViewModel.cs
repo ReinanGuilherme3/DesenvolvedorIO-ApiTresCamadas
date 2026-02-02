@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DevIO.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace DevIO.Api.ViewModels;
 
@@ -33,4 +34,18 @@ public class EnderecoViewModel
     public string? Estado { get; set; }
 
     public Guid FornecedorId { get; set; }
+
+    public Endereco MapearParaEntidade()
+        => new()
+        {
+            Id = Id,
+            Logradouro = Logradouro,
+            Numero = Numero,
+            Complemento = Complemento,
+            Bairro = Bairro,
+            Cep = Cep,
+            Cidade = Cidade,
+            Estado = Estado,
+            FornecedorId = FornecedorId
+        };
 }
