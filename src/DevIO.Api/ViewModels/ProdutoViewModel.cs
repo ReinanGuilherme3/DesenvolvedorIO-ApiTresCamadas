@@ -1,5 +1,4 @@
-﻿using DevIO.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DevIO.Api.ViewModels;
 
@@ -26,16 +25,4 @@ public class ProdutoViewModel
     public bool Ativo { get; set; }
 
     public string? NomeFornecedor { get; set; }
-
-    public Produto MapearParaEntidade()
-        => new()
-        {
-            Id = Id,
-            FornecedorId = FornecedorId,
-            Nome = Nome,
-            Descricao = Descricao,
-            Valor = Valor,
-            DataCadastro = DataCadastro,
-            Ativo = Ativo
-        };
 }

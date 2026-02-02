@@ -8,7 +8,7 @@ public static class FornecedorViewModelMap
     public static Fornecedor MapearParaEntidade(this FornecedorViewModel viewModel)
         => new()
         {
-            Id = viewModel.Id,
+            //Id = viewModel.Id,
             Nome = viewModel.Nome,
             Documento = viewModel.Documento,
             TipoFornecedor = viewModel.TipoFornecedor,
