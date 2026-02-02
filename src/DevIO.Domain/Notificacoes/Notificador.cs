@@ -4,21 +4,13 @@ namespace DevIO.Domain.Notificacoes;
 
 internal class Notificador : INotificador
 {
-    private readonly List<Notificacao> _notificacoes;
-    public Notificador()
-    {
-        _notificacoes = new List<Notificacao>();
-    }
+    private readonly List<Notificacao> _notificacoes = [];
+
     public void Handle(Notificacao notificacao)
-    {
-        _notificacoes.Add(notificacao);
-    }
+        => _notificacoes.Add(notificacao);
     public List<Notificacao> ObterNotificacoes()
-    {
-        return _notificacoes;
-    }
+        => _notificacoes;
+
     public bool TemNotificacoes()
-    {
-        return _notificacoes.Any();
-    }
+        => _notificacoes.Count != 0;
 }

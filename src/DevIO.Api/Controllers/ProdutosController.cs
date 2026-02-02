@@ -2,12 +2,14 @@
 using DevIO.Api.ViewModels;
 using DevIO.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DevIO.Api.Controllers;
 
 public class ProdutosController(
     IProdutoRepository _produtoRepository,
-    IProdutoService _produtoService) : MainController
+    IProdutoService _produtoService,
+    INotificador _notificador) : MainController(_notificador)
 {
 
     [HttpGet]
@@ -36,7 +38,7 @@ public class ProdutosController(
         var produto = produtoViewModel.MapearParaEntidade();
         await _produtoService.Adicionar(produto);
 
-        return CustomResponse(produtoViewModel);
+        return CustomResponse(HttpStatusCode.OK, produtoViewModel);
     }
 
     [HttpPut("{id:guid}")]
@@ -44,7 +46,7 @@ public class ProdutosController(
     {
         if (id != produtoViewModel.Id)
         {
-            AdicionarErro("O id informado não é o mesmo que foi passado na query");
+            NotificarErro("O id informado não é o mesmo que foi passado na query");
             return CustomResponse();
         }
 
@@ -57,7 +59,7 @@ public class ProdutosController(
 
         await _produtoService.Atualizar(produto);
 
-        return CustomResponse(produtoViewModel);
+        return CustomResponse(HttpStatusCode.NoContent, produtoViewModel);
     }
 
     [HttpDelete("{id:guid}")]
@@ -66,6 +68,6 @@ public class ProdutosController(
         var produto = await _produtoRepository.ObterPorId(id);
         if (produto is null) return NotFound();
         await _produtoService.Remover(id);
-        return CustomResponse();
+        return CustomResponse(HttpStatusCode.NoContent);
     }
 }

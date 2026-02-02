@@ -2,12 +2,14 @@
 using DevIO.Api.ViewModels;
 using DevIO.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DevIO.Api.Controllers;
 
 public class FornecedoresController(
     IFornecedorRepository _fornecedorRepository,
-    IFornecedorService _fornecedorService) : MainController
+    IFornecedorService _fornecedorService,
+    INotificador _notificador) : MainController(_notificador)
 {
 
     [HttpGet]
@@ -35,7 +37,7 @@ public class FornecedoresController(
 
         var fornecedor = fornecedorViewModel.MapearParaEntidade();
         await _fornecedorService.Adicionar(fornecedor);
-        return CustomResponse(fornecedorViewModel);
+        return CustomResponse(HttpStatusCode.Created, fornecedorViewModel);
     }
 
     [HttpPut("{id:guid}")]
@@ -43,7 +45,7 @@ public class FornecedoresController(
     {
         if (id != fornecedorViewModel.Id)
         {
-            AdicionarErro("O id informado não é o mesmo que foi passado na query");
+            NotificarErro("O id informado não é o mesmo que foi passado na query");
             return CustomResponse();
         }
 
@@ -54,14 +56,14 @@ public class FornecedoresController(
 
         fornecedor = fornecedorViewModel.MapearParaEntidade();
         await _fornecedorService.Atualizar(fornecedor);
-        return CustomResponse(fornecedorViewModel);
+        return CustomResponse(HttpStatusCode.NoContent);
     }
 
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult<FornecedorViewModel>> Excluir(Guid id)
     {
         await _fornecedorService.Remover(id);
-        return CustomResponse();
+        return CustomResponse(HttpStatusCode.NoContent);
     }
 }
 
