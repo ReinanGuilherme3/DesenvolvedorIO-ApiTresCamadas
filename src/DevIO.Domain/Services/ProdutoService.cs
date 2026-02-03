@@ -4,7 +4,7 @@ using DevIO.Domain.Interfaces;
 
 namespace DevIO.Domain.Services;
 
-internal class ProdutoService : BaseService, IProdutoService
+public class ProdutoService : BaseService, IProdutoService
 {
     private readonly IProdutoRepository _produtoRepository;
 

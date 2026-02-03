@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevIO.Data.Repositories;
 
-internal class FornecedorRepository(DevIODbContext context) : Repository<Fornecedor>(context), IFornecedorRepository
+public class FornecedorRepository(DevIODbContext context) : Repository<Fornecedor>(context), IFornecedorRepository
 {
     public async Task<Endereco?> ObterEnderecoPorFornecedor(Guid fornecedorId)
         => await Db.Enderecos

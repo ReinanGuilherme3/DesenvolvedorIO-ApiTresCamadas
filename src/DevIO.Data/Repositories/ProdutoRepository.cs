@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevIO.Data.Repositories;
 
-internal class ProdutoRepository(DevIODbContext context) : Repository<Produto>(context), IProdutoRepository
+public class ProdutoRepository(DevIODbContext context) : Repository<Produto>(context), IProdutoRepository
 {
     public async Task<Produto?> ObterProdutoFornecedor(Guid id)
         => await DbSet
