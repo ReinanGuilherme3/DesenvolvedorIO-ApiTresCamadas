@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/src/">
-    <File Path="src/README.md" />
     <Project Path="src/DevIO.Api/DevIO.Api.csproj" Id="0c9bfe66-c6cc-4803-9d07-d6374fec4db4" />
     <Project Path="src/DevIO.Data/DevIO.Data.csproj" Id="900dbb23-a9c8-44a3-abc8-f9a387aecd61" />
     <Project Path="src/DevIO.Domain/DevIO.Domain.csproj" Id="3bc60df1-c351-485f-9268-43c17bc49e15" />
