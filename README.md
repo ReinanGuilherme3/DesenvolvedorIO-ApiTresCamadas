@@ -8,7 +8,7 @@ O conteúdo aborda conceitos fundamentais de arquitetura de software, com foco e
 
 ## 🎓 Certificado
 
-![Certificado](./certificado.png)
+![Certificado](./img/certificado.png)
 
 > 📌 *Imagem do certificado de conclusão do curso.*
 
